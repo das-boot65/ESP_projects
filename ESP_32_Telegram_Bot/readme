@@ -1,4 +1,4 @@
-# ESP32 Telegram Bot for Obstacle Detection
+# ESP32 Telegram Bot for Obstacle Detection using IR sensor
 
 This project demonstrates how to use an ESP32 microcontroller to detect obstacles using a sensor and send notifications to a Telegram chat using a Telegram bot.
 
@@ -53,6 +53,7 @@ Once the code is uploaded to your ESP32 board and the connections are set up pro
 
 Make sure your ESP32 is connected to the WiFi network for the notifications to work properly.
 
+@das-boot65
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
