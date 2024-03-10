@@ -1,0 +1,46 @@
+# ESP8266 IoT Smart Home System
+@das-boot65
+This project enables you to monitor temperature, humidity, and distance using an ESP8266 microcontroller along with various sensors. Additionally, it provides remote control over appliances via the Blynk app.
+
+## Prerequisites
+
+1. ESP8266 microcontroller board
+2. DHT11 temperature and humidity sensor
+3. Ultrasonic distance sensor
+4. 4-channel relay module
+5. Access to a WiFi network
+
+## Getting Started
+
+1. Install Libraries: Install the required libraries using the Arduino IDE Library Manager (Blynk, DHT, and SimpleTimer).
+
+2. Connections: Wire the sensors and relay module to your ESP8266 board as specified in the code.
+
+3. Blynk Setup: Create a new project in the Blynk app and obtain the authentication token. Replace `BLYNK_AUTH_TOKEN` in the code with your token.
+
+4. WiFi Credentials: Update `ssid` and `pass` variables with your WiFi network name and password.
+
+5. Upload Code: Upload the provided sketch to your ESP8266 board via the Arduino IDE.
+
+6. Monitor and Control: Open the Serial Monitor to view sensor readings. Use the Blynk app to monitor data remotely and control connected appliances.
+
+## Functionality
+
+-Temperature and Humidity Monitoring: DHT11 sensor readings (temperature and humidity) are displayed on Blynk widgets (virtual pins V2 and V3).
+  
+-Distance Monitoring: Ultrasonic sensor measures distance, displayed on Blynk widget (virtual pin V0). Relay 1 is triggered if distance exceeds 30 cm.
+
+- Remote Appliance Control: Relays 3 and 4 are controlled via Blynk switches (virtual pins V7 and V8).
+
+- Temperature-Based Appliance Control: Relay 2 is controlled based on a temperature threshold set in the Blynk slider (virtual pin V5).
+
+## Tips
+
+- Ensure proper sensor connections and placement for accurate readings.
+- Maintain a stable WiFi connection for seamless operation.
+- Utilize the Serial Monitor for debug information and sensor readings during setup and testing.
+
+## License
+
+This project is licensed under the MIT License.
+
