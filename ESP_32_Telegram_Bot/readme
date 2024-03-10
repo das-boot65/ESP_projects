@@ -1,0 +1,58 @@
+# ESP32 Telegram Bot for Obstacle Detection
+
+This project demonstrates how to use an ESP32 microcontroller to detect obstacles using a sensor and send notifications to a Telegram chat using a Telegram bot.
+
+## Prerequisites
+
+Before using this code, make sure you have the following:
+
+- An ESP32 microcontroller board.
+- A sensor connected to the ESP32 for obstacle detection.
+- Access to a WiFi network.
+
+## Getting Started
+
+### Getting Chat ID in Telegram
+
+To receive notifications from the ESP32 bot, you need to obtain the chat ID of your Telegram account. Follow these steps to get your chat ID:
+
+1. Open the Telegram app on your mobile device or desktop.
+2. Search for the "userinfobot" in Telegram and start a chat with it.
+3. Type `/start` in the chat with "userinfobot".
+4. The bot will reply with your chat ID. Copy the chat ID for later use.
+
+### Creating a Telegram Bot using BotFather
+
+To create a Telegram bot that will send notifications to your chat, you need to create a new bot using BotFather. Here's how:
+
+1. Open the Telegram app and search for "BotFather".
+2. Start a chat with BotFather and type `/start`.
+3. Follow the prompts from BotFather to create a new bot:
+   - Type `/newbot` to create a new bot.
+   - Choose a name for your bot.
+   - Choose a username for your bot.
+4. BotFather will provide you with a bot token. Copy the token for later use.
+
+### Setting Up the Code
+
+1. Open the provided code in your favorite Arduino IDE.
+2. Replace the placeholders with your WiFi network credentials, bot token, and chat ID.
+   - Replace `"YOUR SSID"` with your WiFi network SSID.
+   - Replace `"YOUR WIFI PASSWORD"` with your WiFi network password.
+   - Replace `"YOUR BOT TOKEN"` with the token provided by BotFather.
+   - Replace `"YOUR CHAT ID"` with the chat ID obtained from userinfobot.
+3. Upload the code to your ESP32 board.
+
+## Usage
+
+Once the code is uploaded to your ESP32 board and the connections are set up properly:
+
+- The ESP32 will monitor the sensor for obstacle detection.
+- When an obstacle is detected, a notification will be sent to your Telegram chat.
+- When the obstacle is removed, another notification will be sent to your Telegram chat.
+
+Make sure your ESP32 is connected to the WiFi network for the notifications to work properly.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
