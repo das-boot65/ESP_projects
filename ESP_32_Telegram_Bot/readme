@@ -12,6 +12,34 @@ Before using this code, make sure you have the following:
 
 ## Getting Started
 
+To install the Universal Arduino Telegram Bot library, follow these simple steps:
+
+Download the library in the repository
+
+In the Arduino IDE, navigate to Sketch > Include Library > Add .ZIP Library...
+
+Select the library file you downloaded in step 1 and click Open.
+
+That's it! The library is now installed and ready to use.
+
+For more information about the Universal Arduino Telegram Bot Library, including usage instructions and examples, you can visit the GitHub page:  
+https://github.com/witnessmenow/Universal-Arduino-Telegram-Bot
+https://github.com/bblanchon/ArduinoJson
+
+To install the ArduinoJson library, follow these steps:
+
+In the Arduino IDE, go to Sketch > Include Library > Manage Libraries.
+
+In the Library Manager, search for "ArduinoJson".
+
+Select the latest version available from the search results.
+
+Click Install.
+
+Once the installation is complete, you can start using the ArduinoJson library in your projects.
+
+These libraries provide essential functionalities for communicating with Telegram bots and handling JSON data in your Arduino projects, making it easier to develop interactive and connected applications.
+
 ### Getting Chat ID in Telegram
 
 To receive notifications from the ESP32 bot, you need to obtain the chat ID of your Telegram account. Follow these steps to get your chat ID:
