@@ -1,125 +1,107 @@
-#define BLYNK_TEMPLATE_ID "TMPL8WxA9QQ_"
-#define BLYNK_DEVICE_NAME "DHT11"
-#define BLYNK_AUTH_TOKEN "jW5_6IAygbcNYcYtOoSARxu5QBZNk_yH"
-
 #define BLYNK_PRINT Serial
-#include <WiFi.h>
-#include <WiFiClient.h>
-#include <BlynkSimpleEsp32.h>
-#include <HardwareSerial.h>
-HardwareSerial Sim800L(2);
+#include <SPI.h>
+#include <SimpleTimer.h>
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
 #include <DHT.h>
-
-
-char auth[] = BLYNK_AUTH_TOKEN;
-
-char ssid[] = "ONEPLUS";  // type your wifi name
-char pass[] = "asdf12345";  // type your wifi password
-
+DHT dht(D2, DHT11);
+#define relay1 D7
+#define relay2 D8
+#define relay3 D3
+#define relay4 D4
+#define  trig  D1
+#define  echo  D0
+#define BLYNK_AUTH_TOKEN "" //Enter your blynk auth token
+char auth[] = "bDWF7gFMLb4qKcUeHOPeJ6ic1hwhl8g8";
+char ssid[] = "kiran";//Enter your WIFI name
+char pass[] = "gzye4416";//Enter your WIFI password
+long duration;
+int distance;
 BlynkTimer timer;
-
-
-String mobilenumber = "919790913186";    // type your mobile number with country code.  
-
-String num="" ;
-
-#define DHTPIN 13 
-#define DHTTYPE DHT11  
-DHT dht(DHTPIN, DHTTYPE);
-
-
-void sendSensor()
-{
+void sendSensor1() {
   float h = dht.readHumidity();
-  float t = dht.readTemperature(); // or dht.readTemperature(true) for Fahrenheit
+  float t = dht.readTemperature();
+  Serial.begin(9600);
 
   if (isnan(h) || isnan(t)) {
     Serial.println("Failed to read from DHT sensor!");
     return;
   }
-  // You can send any value at any time.
-  // Please don't send more that 10 values per second.
-    Blynk.virtualWrite(V0, t);
-    Blynk.virtualWrite(V1, h);
-    Serial.print("Temperature : ");
-    Serial.print(t);
-    Serial.print("    Humidity : ");
-    Serial.println(h);
-   if (t>40)
-    {
-    sendsms();
-    delay(7000);
-    call();
-    } 
-    
+  Blynk.virtualWrite(V2, t);
+  Blynk.virtualWrite(V3, h);
+
 }
-void setup()
-{   
-  
-  Serial.begin(115200);
-  delay(3000);
-  Sim800L.begin(9600);
-  Sim800L.println("AT+CMGF=1"); // Configuring TEXT mode
-  delay(500);
-  updateSerial();
-  Sim800L.print ("AT+CSMP=17,167,0,0\r");// Configuring TEXT mode
-  delay(500);
-  updateSerial();
-  num=mobilenumber.substring(2,12);
-  Sim800L.print("AT+CMGS=\""); // Send the SMS number
-  Sim800L.print(num);
-  Sim800L.println("\"");
-  delay(500);
-  Sim800L.print("GSM 800L Kit is Working Properly"); //text content
-  Sim800L.write(0x1A); //ascii code for ctrl-26 //sim800.println((char)26); //ascii code for ctrl-26
-  delay(1000);
-  updateSerial();
-  delay(5000);
-  dht.begin();
+BLYNK_WRITE(V7) {
+  bool value1 = param.asInt();
+  if (value1 == 1) {
+    digitalWrite(relay3, LOW);
+  } else {
+    digitalWrite(relay3, HIGH);
+  }
+}
+BLYNK_WRITE(V8) {
+  bool value2 = param.asInt();
+  if (value2 == 1) {
+    digitalWrite(relay4, LOW);
+  } else {
+    digitalWrite(relay4, HIGH);
+  }
+}
+void setup() {
   Blynk.begin(auth, ssid, pass);
-  timer.setInterval(100L, sendSensor);
- }
-
-void loop()
-{
-  Blynk.run();
-  timer.run();
- }
-
- 
-void updateSerial()
-{
-  
-  while (Serial.available()) 
-  {
-    Sim800L.write(Serial.read());//Forward what Serial received to Software Serial Port
-  }
-  while(Sim800L.available()) 
-  {
-   Serial.write(Sim800L.read());//Forward what Software Serial received to Serial Port
-  }
+  dht.begin();
+  timer.setInterval(100L, sendSensor1);
+  timer.setInterval(1000L, sendSensor1);
+  pinMode(relay1, OUTPUT);
+  pinMode(relay2, OUTPUT);
+  pinMode(relay3, OUTPUT);
+  pinMode(relay4, OUTPUT);
+  digitalWrite(relay3, HIGH);
+  digitalWrite(relay4, HIGH);
+  Blynk.begin(auth, ssid, pass, "blynk.cloud", 80);
+  pinMode(trig, OUTPUT); 
+  pinMode(echo, INPUT);   
+  Serial.begin(9600);
+  Blynk.begin(auth, ssid, pass);
+  timer.setInterval(1000L, sendSensor);
 }
-
-
-void sendsms()
-{ 
-  Sim800L.println("AT+CMGF=1"); // Configuring TEXT mode
-  delay(500);
-  Sim800L.print ("AT+CSMP=17,167,0,0\r");// Configuring TEXT mode
-  
-  Sim800L.print("AT+CMGS=\""); // Send the SMS number
-  Sim800L.print(num);
-  Sim800L.println("\"");
-  delay(500);
-  Sim800L.print("Fire in Factory"); //text content
-  Sim800L.write(0x1A); //ascii code for ctrl-26 //sim800.println((char)26); //ascii code for ctrl-26
-  delay(1000);
-  updateSerial();
+void loop() {
+Blynk.run();
+timer.run();
 }
-
-void call()
-{ 
-  Sim800L.println("ATD+"+ mobilenumber +";");
-  Sim800L.println();
-  delay(30000);
+void sendSensor()
+{
+  digitalWrite(trig, LOW);   
+  delayMicroseconds(2);       
+  digitalWrite(trig, HIGH); 
+  delayMicroseconds(10);      
+  digitalWrite(trig, LOW);   
+  duration = pulseIn(echo, HIGH);   
+  distance = duration * 0.034 / 2;  
+  Blynk.virtualWrite(V0, distance);
+  delay(1000); 
+  if(distance>30){
+  digitalWrite(relay1, HIGH);
+  }
+  else{
+  digitalWrite(relay1, LOW);  
+  }  
+}
+BLYNK_WRITE(V5) {   
+  String value = param.asStr();
+  Blynk.virtualWrite(V5, value);
+  Serial.begin(9600);
+  Serial.print("V5 = '");
+  Serial.print(value);
+  Serial.println("'");    
+  int a=value.toInt();
+  Serial.print(a);
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  if(t>a){
+  digitalWrite(relay2, LOW); 
+  }
+  else{
+  digitalWrite(relay2, HIGH);  
+  }
 }
