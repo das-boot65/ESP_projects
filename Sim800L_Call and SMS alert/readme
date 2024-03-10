@@ -1,0 +1,49 @@
+# ESP32 DHT11 Sensor Monitoring with SMS and Call Alerts
+
+Welcome to the ESP32 DHT11 Sensor Monitoring project! This setup lets you keep an eye on temperature and humidity using an ESP32 and a DHT11 sensor. Plus, it can send you an SMS or make a call if things heat up too much.
+
+## What You'll Need
+
+Grab these essentials:
+
+- ESP32 microcontroller board
+- DHT11 temperature and humidity sensor
+- Access to a WiFi network
+
+## Getting Started
+
+Here's the scoop on setting it all up:
+
+1. Install the Libraries: Get the Blynk and DHT sensor libraries from the Arduino IDE Library Manager.
+
+2. Connect Your ESP32: Plug it into your computer via USB.
+
+3. Open Arduino IDE: Fire it up and create a new sketch.
+
+4. Copy the Code: Grab the code from this repo and paste it into your sketch.
+
+5. Update the Code: Fill in your WiFi details, Blynk auth token, and mobile number for alerts.
+
+6. Upload and Run: Hit upload and let the magic happen!
+
+## How It Works
+
+Once it's all set:
+
+- The ESP32 connects to your WiFi and starts monitoring temp and humidity with the DHT11.
+
+- If it gets too hot (over 40°C), you'll get an SMS with "Fire in Factory" and a call to your mobile.
+
+- Keep tabs on temp and humidity in real-time using the Blynk app.
+
+## Handy Tips
+
+- Check your ESP32's WiFi connection for SMS and call alerts to work.
+
+- Make sure you've installed the Blynk and DHT sensor libraries to avoid any hiccups.
+
+## License
+
+This project is licensed under the MIT License.
+
+Cheers!
