@@ -41,18 +41,16 @@ Search for and install the following libraries:
 Adafruit BME280
 Adafruit Unified Sensor
 ArduinoBLE
-Configuration
-Open the project in Arduino IDE:
 
-sh
-Copy code
+
+Open the project in Arduino IDE:
 File > Open > BLE projects/BLE_ESP32_BME280/BLE_ESP32_BME280.ino
+
 Configure the BME280 sensor address:
 Ensure the correct I2C address for the BME280 sensor is set in the code. The default address used is 0x76. If your sensor uses 0x77, update the bme.begin line accordingly in the initBME() function.
 
-Usage
-Upload the code:
 
+Upload the code:
 Connect your ESP32 board to the computer.
 Select the appropriate board and port from Tools > Board and Tools > Port.
 Click the Upload button.
@@ -60,7 +58,6 @@ Monitor Serial Output:
 Open the Serial Monitor from Tools > Serial Monitor to see the connection status and sensor readings.
 
 Connect via BLE:
-
 Use a BLE-compatible app on your smartphone (e.g., nRF Connect).
 Scan for BLE devices and connect to the device named ESP32_BME280.
 Subscribe to the characteristics to receive notifications for temperature, humidity, and pressure data.
